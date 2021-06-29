@@ -68,7 +68,7 @@ class Employee(models.Model):
 
 class Contract(models.Model):
 
-    number = models.IntegerField()
+    number = models.CharField(max_length=10)
     name = models.CharField(max_length=40)
     type = models.CharField(max_length=40)
     start_date = models.DateField()
@@ -98,7 +98,7 @@ class Building(models.Model):
 
 class Drawing(models.Model):
 
-    number = models.IntegerField()
+    number = models.CharField(max_length=15)
     revision = models.CharField(max_length=1)
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(null=True, blank=True)
