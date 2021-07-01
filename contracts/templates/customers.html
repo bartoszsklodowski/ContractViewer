@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for customer in object_list %}
+        <p><a href="{% url 'contracts:customer-detail-view' pk=customer.pk %}">{{ customer }}</a></p>
+    {% endfor %}
+{% endblock %}

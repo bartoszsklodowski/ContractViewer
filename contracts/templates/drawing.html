@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>
+        id: {{ drawing.id }}<br> number: {{ drawing.number }}<br> element: {{ drawing.element }}
+        <br> revision: {{ drawing.revision }}<br> creation_date: {{ drawing.creation_date }}
+        <br> modification_date: {{ drawing.modification_date }}
+        <br> technician: {{ drawing.technician }}<br> building: {{ drawing.building }}
+        <br> contract: {{ drawing.contract }}
+    </p>
+{% endblock %}

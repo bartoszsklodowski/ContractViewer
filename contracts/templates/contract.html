@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>
+        id: {{ contract.id }}<br> number: {{ contract.number }}<br> name: {{ contract.name }}<br> type: {{ contract.type }}
+        <br> start_date: {{ contract.start_date }}<br> end_date: {{ contract.end_date }}<br> description: {{ contract.description }}
+        <br> address: {{ contract.address }}<br> customer: {{ contract.customer }}<br> region: {{ contract.region }}
+        <br> employee: {% for employee in contract.employee %}
+            {{ employee }}
+        {% endfor %}
+    </p>
+{% endblock %}

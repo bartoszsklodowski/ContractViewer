@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for region in object_list %}
+        <p><a href="{% url 'contracts:region-detail-view' pk=region.pk %}">{{ region }}</a></p>
+    {% endfor %}
+{% endblock %}

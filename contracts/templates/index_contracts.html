@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <a class="nav-item nav-link active" href="{% url 'contracts:addresses' %}">Redirect to Addresses</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:customers' %}">Redirect to Customers</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:regions' %}">Redirect to Regions</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:personal_datas' %}">Redirect to Personal Datas</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:departments' %}">Redirect to Departments</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:employees' %}">Redirect to Employees</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:contracts' %}">Redirect to Contracts</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:buildings' %}">Redirect to Buildings</a>
+    <a class="nav-item nav-link active" href="{% url 'contracts:drawings' %}">Redirect to Drawings</a>
+{% endblock %}

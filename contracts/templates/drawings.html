@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for drawing in object_list %}
+        <p><a href="{% url 'contracts:drawing-detail-view' pk=drawing.pk %}">{{ drawing }}</a></p>
+    {% endfor %}
+{% endblock %}
