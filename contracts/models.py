@@ -55,7 +55,7 @@ class Department(models.Model):
 class Employee(models.Model):
 
     position = models.CharField(max_length=30)
-    hire_date = models.DateField(auto_now_add=True)
+    hire_date = models.DateField()
     personal_data = models.ForeignKey(PersonalData, on_delete=models.CASCADE, related_name="employees")
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name="employees")
 
@@ -63,7 +63,7 @@ class Employee(models.Model):
         ordering = ['position', 'hire_date']
 
     def __str__(self):
-        return f"{self.position} {self.hire_date}"
+        return f"{self.position} {self.personal_data.name} {self.personal_data.last_name} {self.department}"
 
 
 class Contract(models.Model):
@@ -72,7 +72,7 @@ class Contract(models.Model):
     name = models.CharField(max_length=40)
     type = models.CharField(max_length=40)
     start_date = models.DateField()
-    end_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True, related_name="contracts")
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="contracts")
@@ -83,7 +83,7 @@ class Contract(models.Model):
         ordering = ['number', 'name', 'type', 'start_date', 'end_date']
 
     def __str__(self):
-        return f"{self.number} {self.name} {self.type} {self.address} {self.start_date} {self.end_date}"
+        return f"{self.number} {self.name}"
 
 
 class Building(models.Model):
@@ -99,7 +99,8 @@ class Building(models.Model):
 class Drawing(models.Model):
 
     number = models.CharField(max_length=15)
-    revision = models.CharField(max_length=1)
+    element = models.CharField(max_length=40, blank=True)
+    revision = models.CharField(max_length=1, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(null=True, blank=True)
     technician = models.ForeignKey(Employee, on_delete=models.CASCADE,related_name="drawings")
@@ -107,4 +108,4 @@ class Drawing(models.Model):
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE, related_name="drawings")
 
     def __str__(self):
-        return f"{self.number} {self.revision} {self.creation_date} {self.modification_date}"
+        return f"{self.number} {self.element} {self.revision} {self.creation_date} {self.modification_date}"
