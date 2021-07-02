@@ -130,7 +130,7 @@ class DrawingDetailView(DetailView):
 class AddressCreateView(CreateView):
     # permission_required = ['movies.add_actor', ]
     model = Address
-    fields = "__all__"
+    form_class = AddressModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
@@ -138,7 +138,7 @@ class AddressCreateView(CreateView):
 class CustomerCreateView(CreateView):
     # permission_required = ['movies.add_actor', ]
     model = Customer
-    fields = "__all__"
+    form_class = CustomerModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
@@ -146,7 +146,7 @@ class CustomerCreateView(CreateView):
 class RegionCreateView(CreateView):
     # permission_required = ['movies.add_actor', ]
     model = Region
-    fields = "__all__"
+    form_class = RegionModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
@@ -154,7 +154,7 @@ class RegionCreateView(CreateView):
 class PersonalDataCreateView(CreateView):
     # permission_required = ['movies.add_actor', ]
     model = PersonalData
-    fields = "__all__"
+    form_class = PersonalDataModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
@@ -162,7 +162,7 @@ class PersonalDataCreateView(CreateView):
 class DepartmentCreateView(CreateView):
     # permission_required = ['movies.add_actor', ]
     model = Department
-    fields = "__all__"
+    form_class = DepartmentModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
@@ -186,7 +186,7 @@ class ContractCreateView(CreateView):
 class BuildingCreateView(CreateView):
     # permission_required = ['movies.add_actor', ]
     model = Building
-    fields = "__all__"
+    form_class = BuildingModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
@@ -203,41 +203,41 @@ class DrawingCreateView(CreateView):
 class AddressUpdateView(UpdateView):
     # permission_required = ['movies.view_actor', 'movies.change_actor', ]
     model = Address
-    fields = ("street", "zip_code", "town",)
+    form_class = AddressModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class CustomerUpdateView(UpdateView):
     # permission_required = ['movies.view_actor', 'movies.change_actor', ]
     model = Customer
-    fields = ("name", "description", "address",)
+    form_class = CustomerModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class RegionUpdateView(UpdateView):
     # permission_required = ['movies.view_actor', 'movies.change_actor', ]
     model = Region
-    fields = ("name", "prefix", "address",)
+    form_class = RegionModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class PersonalDataUpdateView(UpdateView):
     # permission_required = ['movies.view_actor', 'movies.change_actor', ]
     model = PersonalData
-    fields = ("name", "last_name", "address",)
+    form_class = PersonalDataModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class DepartmentUpdateView(UpdateView):
     # permission_required = ['movies.view_actor', 'movies.change_actor', ]
     model = Department
-    fields = ("name", "description",)
+    form_class = DepartmentModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class EmployeeUpdateView(UpdateView):
@@ -245,7 +245,7 @@ class EmployeeUpdateView(UpdateView):
     model = Employee
     form_class = EmployeeModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class ContractUpdateView(UpdateView):
@@ -253,15 +253,15 @@ class ContractUpdateView(UpdateView):
     model = Contract
     form_class = ContractModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class BuildingUpdateView(UpdateView):
     # permission_required = ['movies.view_actor', 'movies.change_actor', ]
     model = Building
-    fields = ("name", "description", "contract",)
+    form_class = BuildingModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class DrawingUpdateView(UpdateView):
@@ -269,7 +269,7 @@ class DrawingUpdateView(UpdateView):
     model = Drawing
     form_class = DrawingModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 # DELETEVIEW
@@ -278,7 +278,7 @@ class AddressDeleteView(DeleteView):
     model = Address
     fields = ("street", "zip_code", "town",)
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class CustomerDeleteView(DeleteView):
@@ -286,7 +286,7 @@ class CustomerDeleteView(DeleteView):
     model = Customer
     fields = ("name", "description", "address",)
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class RegionDeleteView(DeleteView):
@@ -294,7 +294,7 @@ class RegionDeleteView(DeleteView):
     model = Region
     fields = ("name", "prefix", "address",)
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class PersonalDataDeleteView(DeleteView):
@@ -302,7 +302,7 @@ class PersonalDataDeleteView(DeleteView):
     model = PersonalData
     fields = ("name", "last_name", "address",)
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class DepartmentDeleteView(DeleteView):
@@ -310,7 +310,7 @@ class DepartmentDeleteView(DeleteView):
     model = Department
     fields = ("name", "description",)
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class EmployeeDeleteView(DeleteView):
@@ -318,7 +318,7 @@ class EmployeeDeleteView(DeleteView):
     model = Employee
     fields = ("position", "hire_date", "personal_data", "department",)
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class ContractDeleteView(DeleteView):
@@ -326,7 +326,7 @@ class ContractDeleteView(DeleteView):
     model = Contract
     form_class = ContractModelForm
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class BuildingDeleteView(DeleteView):
@@ -334,7 +334,7 @@ class BuildingDeleteView(DeleteView):
     model = Building
     fields = ("name", "description", "contract",)
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
 
 
 class DrawingDeleteView(DeleteView):
@@ -342,4 +342,4 @@ class DrawingDeleteView(DeleteView):
     model = Drawing
     form_class = DrawingModelForm
     template_name = "delete_form.html"
-    success_url = reverse_lazy("contracts:index_contracts")
+    success_url = reverse_lazy("contracts:index")
