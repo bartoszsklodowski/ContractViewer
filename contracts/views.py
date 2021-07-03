@@ -1,198 +1,201 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.views.generic import TemplateView, ListView, FormView, CreateView, DetailView, UpdateView, DeleteView
 
 from contracts.models import Address, Customer, Region, PersonalData, Department, Employee, Contract, Building, Drawing
-from contracts.forms import AddressModelForm, CustomerModelForm, RegionModelForm, PersonalDataModelForm, DepartmentModelForm
+from contracts.forms import AddressModelForm, CustomerModelForm, RegionModelForm, PersonalDataModelForm, \
+    DepartmentModelForm
 from contracts.forms import EmployeeModelForm, ContractModelForm, BuildingModelForm, DrawingModelForm
 
 
 def homepage(request):
     return render(request, template_name="homepage.html")
 
-# @login_required(login_url="/accounts/login/")
+
+@login_required(login_url="/accounts/login/")
 def index_contracts(request):
     return render(request, template_name="index_contracts.html")
 
 
 # LISTVIEW
-class AddressListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class AddressListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_address', ]
     template_name = "addresses.html"
     model = Address
 
 
-class CustomerListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class CustomerListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_customer', ]
     template_name = "customers.html"
     model = Customer
 
 
-class RegionListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class RegionListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_region', ]
     template_name = "regions.html"
     model = Region
 
 
-class PersonalDataListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class PersonalDataListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_personal_data', ]
     template_name = "personal_datas.html"
     model = PersonalData
 
 
-class DepartmentListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class DepartmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_department', ]
     template_name = "departments.html"
     model = Department
 
 
-class EmployeeListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class EmployeeListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_employee', ]
     template_name = "employees.html"
     model = Employee
 
 
-class ContractListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class ContractListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_contract', ]
     template_name = "contracts.html"
     model = Contract
 
 
-class BuildingListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class BuildingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_building', ]
     template_name = "buildings.html"
     model = Building
 
 
-class DrawingListView(ListView):
-    # permission_required = ['movies.view_actor', ]
+class DrawingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_drawing', ]
     template_name = "drawings.html"
     model = Drawing
 
 
 # DETAILVIEW
-class AddressDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class AddressDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_address', ]
     model = Address
     template_name = "address.html"
 
 
-class CustomerDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class CustomerDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_customer', ]
     model = Customer
     template_name = "customer.html"
 
 
-class RegionDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class RegionDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_region', ]
     model = Region
     template_name = "region.html"
 
 
-class PersonalDataDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class PersonalDataDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_personal_data', ]
     model = PersonalData
     template_name = "personal_data.html"
 
 
-class DepartmentDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class DepartmentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_department', ]
     model = Department
     template_name = "department.html"
 
 
-class EmployeeDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class EmployeeDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_employee', ]
     model = Employee
     template_name = "employee.html"
 
 
-class ContractDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class ContractDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_contract', ]
     model = Contract
     template_name = "contract.html"
 
 
-class BuildingDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class BuildingDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_building', ]
     model = Building
     template_name = "building.html"
 
 
-class DrawingDetailView(DetailView):
-    # permission_required = ['movies.view_actor', ]
+class DrawingDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = ['contracts.view_drawing', ]
     model = Drawing
     template_name = "drawing.html"
 
 
 # CREATEVIEW
-class AddressCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class AddressCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_address', ]
     model = Address
     form_class = AddressModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class CustomerCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class CustomerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_customer', ]
     model = Customer
     form_class = CustomerModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class RegionCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class RegionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_region', ]
     model = Region
     form_class = RegionModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class PersonalDataCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class PersonalDataCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_personal_data', ]
     model = PersonalData
     form_class = PersonalDataModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class DepartmentCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class DepartmentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_department', ]
     model = Department
     form_class = DepartmentModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class EmployeeCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class EmployeeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_employee', ]
     model = Employee
     form_class = EmployeeModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class ContractCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class ContractCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_contract', ]
     model = Contract
     form_class = ContractModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class BuildingCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class BuildingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_building', ]
     model = Building
     form_class = BuildingModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class DrawingCreateView(CreateView):
-    # permission_required = ['movies.add_actor', ]
+class DrawingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ['contracts.add_drawing', ]
     model = Drawing
     form_class = DrawingModelForm
     template_name = "form.html"
@@ -200,72 +203,72 @@ class DrawingCreateView(CreateView):
 
 
 # UPDATEVIEW
-class AddressUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class AddressUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_address', 'contracts.change_address', ]
     model = Address
     fields = ("street", "zip_code", "town",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class CustomerUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class CustomerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_customer', 'contracts.change_customer', ]
     model = Customer
     fields = ("name", "description", "address",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class RegionUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class RegionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_region', 'contracts.change_region']
     model = Region
     fields = ("name", "prefix", "address",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class PersonalDataUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class PersonalDataUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_personal_data', 'contracts.change_personal_data', ]
     model = PersonalData
     fields = ("name", "last_name", "address",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class DepartmentUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class DepartmentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_department', 'contracts.change_department', ]
     model = Department
     fields = ("name", "description",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class EmployeeUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class EmployeeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_employee', 'contracts.change_employee', ]
     model = Employee
     fields = ("position", "hire_date", "personal_data", "department",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class ContractUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class ContractUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_contract', 'contracts.change_contract', ]
     model = Contract
     fields = "__all__"
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class BuildingUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class BuildingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_building', 'contracts.change_building', ]
     model = Building
     fields = ("name", "description", "contract",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class DrawingUpdateView(UpdateView):
-    # permission_required = ['movies.view_actor', 'movies.change_actor', ]
+class DrawingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ['contracts.view_drawing', 'contracts.change_drawing', ]
     model = Drawing
     fields = "__all__"
     template_name = "form.html"
@@ -273,64 +276,64 @@ class DrawingUpdateView(UpdateView):
 
 
 # DELETEVIEW
-class AddressDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class AddressDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_address', ]
     model = Address
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class CustomerDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class CustomerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_customer', ]
     model = Customer
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class RegionDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class RegionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_region', ]
     model = Region
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class PersonalDataDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class PersonalDataDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_personal_data', ]
     model = PersonalData
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class DepartmentDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class DepartmentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_department', ]
     model = Department
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class EmployeeDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class EmployeeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_employee', ]
     model = Employee
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class ContractDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class ContractDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_contract', ]
     model = Contract
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class BuildingDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class BuildingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_building', ]
     model = Building
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
 
-class DrawingDeleteView(DeleteView):
-    # permission_required = ['movies.delete_actor', ]
+class DrawingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ['contracts.delete_drawing', ]
     model = Drawing
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
