@@ -1,8 +1,8 @@
 from django.urls import path
-from accounts.views import user_register
+from accounts.views import UserRegisterView
 
 app_name = "accounts"
 
 urlpatterns = [
-    path('registration/', user_register, name='registration'),
+    path('registration/', UserRegisterView, name='registration'),
 ]
