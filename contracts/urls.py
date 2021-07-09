@@ -12,15 +12,14 @@ from contracts.views import DepartmentUpdateView, EmployeeUpdateView, ContractUp
 from contracts.views import DrawingUpdateView
 from contracts.views import AddressDeleteView, CustomerDeleteView, RegionDeleteView, PersonalDataDeleteView
 from contracts.views import DepartmentDeleteView, EmployeeDeleteView, ContractDeleteView, BuildingDeleteView
-from contracts.views import DrawingDeleteView
-
-
-
+from contracts.views import DrawingDeleteView, homepage
 
 app_name = "contracts"
 
 urlpatterns = [
-    path('', index_contracts, name='index'),
+    path('', homepage, name='homepage'),
+    path('index/', index_contracts, name='index'),
+
     path('addresses/', AddressListView.as_view(), name='addresses'),
     path('customers/', CustomerListView.as_view(), name='customers'),
     path('regions/', RegionListView.as_view(), name='regions'),
