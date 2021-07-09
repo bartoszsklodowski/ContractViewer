@@ -1,28 +1,44 @@
+from django.contrib.auth import login
+from django.contrib.auth.views import PasswordResetView
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import User, Group
-from django.contrib.auth.forms import UserCreationForm
+from accounts.forms import CustomEmailValidationOnForgotPassword, CustomUserCreationForm
+
+
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+
+class UserResetPasswordView(PasswordResetView):
+    form_class = CustomEmailValidationOnForgotPassword
+    template_name = "registration/password_reset_form.html"
 
 
 class UserRegisterView(View):
+
     def get(self, request):
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
         return render(
             request,
-            template_name="form.html",
+            template_name="register.html",
             context={"form": form}
         )
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
             group = Group.objects.get(name='Staff')
+            user = form.save(commit=False)
+            user.backend = "django.contrib.auth.backends.ModelBackend"
+            user.save()
             user.groups.add(group)
-            return redirect('login')
+            login(request, user)
+            return redirect(reverse('login'))
         return render(
             request,
-            template_name="form.html",
+            template_name="register.html",
             context={"form": form}
         )
