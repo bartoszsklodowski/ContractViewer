@@ -1,50 +1,45 @@
-{% load static %}
-<html {% if LANGUAGE_CODE %}lang="{{ LANGUAGE_CODE }}"{% endif %}>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ContractsApplication</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container fixed">
-        <a class="navbar-brand" href="/contracts/">Contracts</a>
-        <button
-          class="navbar-toggler" type="button"
-          data-toggle="collapse" data-target="#navbarNavAltMarkup">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/">
-              Home
-            </a>
-          </div>
-            <div class="navbar-nav">
-              {% if user.is_authenticated %}
-                <a class="nav-item nav-link active" href="{% url 'logout' %}">Logout</a>
-              {% else %}
-                <a class="nav-item nav-link active" href="{% url 'login' %}">Login</a>
-              {% endif %}
-            </div>
-            <div class="navbar-nav">
-              {% if user.is_authenticated %}
-                <a class="nav-item nav-link active" href="{% url 'accounts:registration' %}"></a>
-              {% else %}
-                <a class="nav-item nav-link active" href="{% url 'accounts:registration' %}">Registration</a>
-              {% endif %}
-            </div>
-        </div>
-      </div>
-    </nav>
-    <div class="container">
-      <div class="jumbotron">
-        {% block content %}{% endblock %}
-      </div>
+{% extends 'base.html' %}
+
+{% block content %}
+<p>This is a ContractViewer application.<br>You can here view and modificate contracts that our company manage.</p>
+{% if user.is_authenticated %}
+  <p>What you want to do?</p>
+  <div>
+    <div class="addlink">
+      {% if 'addresses.add_address' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:address-create-view' %}">Add address</a></p>
+      {% endif %}
+      {% if 'customers.add_customer' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:customer-create-view' %}">Add customer</a></p>
+      {% endif %}
+      {% if 'regions.add_region' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:region-create-view' %}">Add region</a></p>
+      {% endif %}
+      {% if 'personal_data.add_personal_data' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:personal_data-create-view' %}">Add personal data</a></p>
+      {% endif %}
+      {% if 'departments.add_department' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:department-create-view' %}">Add department</a></p>
+      {% endif %}
+      {% if 'employees.add_employee' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:employee-create-view' %}">Add employee</a></p>
+      {% endif %}
+      {% if 'contracts.add_contract' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:contract-create-view' %}">Add contract</a></p>
+      {% endif %}
+      {% if 'buildings.add_building' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:building-create-view' %}">Add building</a></p>
+      {% endif %}
+      {% if 'drawings.add_drawing' in user.get_group_permissions %}
+        <p><a href="{% url 'contracts:drawing-create-view' %}">Add drawing</a></p>
+      {% endif %}
     </div>
-  </body>
-</html>
+
+  </div>
+
+  {% else %}
+  <a class="nav-item nav-link active" href="{% url 'accounts:registration' %}"></a>
+  {% endif %}
+
+<a></a>
+{% endblock %}
