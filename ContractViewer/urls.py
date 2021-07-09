@@ -15,13 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.contrib.auth.urls import urlpatterns
 from contracts.views import homepage
+from accounts.views import dashboard
+from accounts.views import dashboard, UserResetPasswordView
+
 
 urlpatterns = [
     path('', homepage, name='homepage'),
     path('admin/', admin.site.urls),
     path('contracts/', include('contracts.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/password_reset/', UserResetPasswordView.as_view(), name='password_reset'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('accounts.urls'))
+    path('oauth/', include("social_django.urls", namespace='social')),
+    path('oauth/complete/github/dashboard/', dashboard, name='dashboard'),
 ]
+
+
+
