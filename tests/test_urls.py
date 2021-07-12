@@ -1,11 +1,10 @@
 from django.urls import reverse, resolve
 
 
-def test_homepage_url(self, client):
+def test_homepage_url(client):
     url = reverse('homepage')
     response = client.get(url)
-    print(response.content)
-    assert resolve(url).view_name == "homepage"
+    assert resolve(url).view_name == 'homepage'
     assert response.status_code == 200
 
 # def test_homepage_url(self):
