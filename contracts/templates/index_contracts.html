@@ -1,12 +1,39 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <a class="nav-item nav-link active" href="{% url 'contracts:addresses' %}">Redirect to Addresses</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:customers' %}">Redirect to Customers</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:regions' %}">Redirect to Regions</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:personal_datas' %}">Redirect to Personal Datas</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:departments' %}">Redirect to Departments</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:employees' %}">Redirect to Employees</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:contracts' %}">Redirect to Contracts</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:buildings' %}">Redirect to Buildings</a>
-    <a class="nav-item nav-link active" href="{% url 'contracts:drawings' %}">Redirect to Drawings</a>
+<h4>This is a ContractViewer all data module.</h4>
+<h5>You can view, modify or delete data depending on the your permission level.</h5><br>
+    <div class="container">
+        <div class="row justify-content-md-left">
+          <div class="list-group">
+          {% if 'addresses.view_address' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:addresses' %}">Addresses</a>
+          {% endif %}
+          {% if 'customers.view_customer' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:customers' %}">Customers</a>
+          {% endif %}
+          {% if 'regions.view_region' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:regions' %}">Regions</a>
+          {% endif %}
+          {% if 'personal_data.view_personal_data' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:personal_datas' %}">Personal Datas</a>
+          {% endif %}
+          {% if 'departments.view_department' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:departments' %}">Departments</a>
+          {% endif %}
+          {% if 'employees.view_employee' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:employees' %}">Employees</a>
+          {% endif %}
+          {% if 'contracts.view_contract' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:contracts' %}">Contracts</a>
+          {% endif %}
+          {% if 'buildings.view_building' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:buildings' %}">Buildings</a>
+          {% endif %}
+          {% if 'drawings.view_drawing' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+            <a class="list-group-item list-group-item-action" href="{% url 'contracts:drawings' %}">Drawings</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
 {% endblock %}
