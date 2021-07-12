@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4>This is a ContractViewer insert data module.</h4>
+<h5>You can add data here depending on the your permission level.</h5><br>
+{% if user.is_authenticated %}
+  <p>What you want to add?</p>
+  <div class="container">
+    <div class="row justify-content-md-left">
+      <div class="list-group">
+      {% if 'addresses.add_address' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:address-create-view' %}">Add address</a>
+      {% endif %}
+      {% if 'customers.add_customer' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:customer-create-view' %}">Add customer</a>
+      {% endif %}
+      {% if 'regions.add_region' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:region-create-view' %}">Add region</a>
+      {% endif %}
+      {% if 'personal_data.add_personal_data' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:personal_data-create-view' %}">Add personal data</a>
+      {% endif %}
+      {% if 'departments.add_department' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:department-create-view' %}">Add department</a>
+      {% endif %}
+      {% if 'employees.add_employee' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:employee-create-view' %}">Add employee</a>
+      {% endif %}
+      {% if 'contracts.add_contract' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:contract-create-view' %}">Add contract</a>
+      {% endif %}
+      {% if 'buildings.add_building' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:building-create-view' %}">Add building</a>
+      {% endif %}
+      {% if 'drawings.add_drawing' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+        <a class="list-group-item list-group-item-action" href="{% url 'contracts:drawing-create-view' %}">Add drawing</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% else %}
+
+{% endif %}
+{% endblock %}
