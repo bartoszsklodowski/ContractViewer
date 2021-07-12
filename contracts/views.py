@@ -10,6 +10,10 @@ from contracts.forms import AddressModelForm, CustomerModelForm, RegionModelForm
 from contracts.forms import EmployeeModelForm, ContractModelForm, BuildingModelForm, DrawingModelForm
 
 
+def insert_data(request):
+    return render(request, template_name="insert_data.html")
+
+
 def homepage(request):
     return render(request, template_name="homepage.html")
 
@@ -19,59 +23,75 @@ def index_contracts(request):
     return render(request, template_name="index_contracts.html")
 
 
+@login_required(login_url="/accounts/login/")
+def contract_multiple_view(request):
+    contracts = Contract.objects.all().order_by('name')
+    return render(request, template_name='contracts_view.html',
+                  context={'contracts': contracts, })
+
+
 # LISTVIEW
 class AddressListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_address', ]
     template_name = "addresses.html"
     model = Address
+    ordering = ['town']
 
 
 class CustomerListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_customer', ]
     template_name = "customers.html"
     model = Customer
+    ordering = ['name']
 
 
 class RegionListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_region', ]
     template_name = "regions.html"
     model = Region
+    ordering = ['prefix']
 
 
 class PersonalDataListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_personal_data', ]
     template_name = "personal_datas.html"
     model = PersonalData
+    ordering = ['last_name']
 
 
 class DepartmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_department', ]
     template_name = "departments.html"
     model = Department
+    ordering = ['name']
 
 
 class EmployeeListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_employee', ]
     template_name = "employees.html"
     model = Employee
+    ordering = ['personal_data.last_name']
 
 
 class ContractListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_contract', ]
     template_name = "contracts.html"
     model = Contract
+    ordering = ['number']
 
 
 class BuildingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_building', ]
     template_name = "buildings.html"
     model = Building
+    ordering = ['name']
 
 
 class DrawingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_drawing', ]
     template_name = "drawings.html"
     model = Drawing
+    ordering = ['building', 'number']
 
 
 # DETAILVIEW
