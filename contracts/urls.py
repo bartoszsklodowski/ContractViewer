@@ -12,12 +12,13 @@ from contracts.views import DepartmentUpdateView, EmployeeUpdateView, ContractUp
 from contracts.views import DrawingUpdateView
 from contracts.views import AddressDeleteView, CustomerDeleteView, RegionDeleteView, PersonalDataDeleteView
 from contracts.views import DepartmentDeleteView, EmployeeDeleteView, ContractDeleteView, BuildingDeleteView
-from contracts.views import DrawingDeleteView, homepage
+from contracts.views import DrawingDeleteView, insert_data, homepage, contract_multiple_view
 
 app_name = "contracts"
 
 urlpatterns = [
     path('', homepage, name='homepage'),
+    path('insert_data/', insert_data, name='insert_data'),
     path('index/', index_contracts, name='index'),
 
     path('addresses/', AddressListView.as_view(), name='addresses'),
@@ -69,5 +70,7 @@ urlpatterns = [
     path('contract-delete-view/<pk>/', ContractDeleteView.as_view(), name='contract-delete-view'),
     path('building-delete-view/<pk>/', BuildingDeleteView.as_view(), name='building-delete-view'),
     path('drawing-delete-view/<pk>/', DrawingDeleteView.as_view(), name='drawing-delete-view'),
+
+    path('contract-multiple-view/', contract_multiple_view, name='contract-multiple-view'),
 
 ]

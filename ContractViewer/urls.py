@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.urls import urlpatterns
-from contracts.views import homepage
+from contracts.views import insert_data, homepage
 from accounts.views import dashboard
 from accounts.views import dashboard, UserResetPasswordView
 
 
 urlpatterns = [
     path('', homepage, name='homepage'),
+    path('insert_data/', insert_data, name='insert_data'),
     path('admin/', admin.site.urls),
     path('contracts/', include('contracts.urls')),
     path('accounts/', include('accounts.urls')),
