@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    {% for personal_data in object_list %}
-        <p><a href="{% url 'contracts:personal_data-detail-view' pk=personal_data.pk %}">{{ personal_data }}</a></p>
-    {% endfor %}
+
+<div class="container">
+    <div class="row justify-content-md-left">
+        <div class="list-group">
+            {% for personal_data in object_list %}
+            <div class="d-flex align-items-center justify-content-between">
+                <a class="list-group-item list-group-item-action"
+                   href="{% url 'contracts:personal_data-detail-view' pk=personal_data.pk %}">{{ personal_data }}</a>
+                {% if 'personal_datas.update_personal_data' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-info" href="{% url 'contracts:personal_data-update-view' pk=personal_data.pk %}" role="button">Update</a>
+                {% endif %}
+                {% if 'personal_datas.delete_personal_data' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-danger" href="{% url 'contracts:personal_data-delete-view' pk=personal_data.pk %}" role="button">Delete</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

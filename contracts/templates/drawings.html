@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    {% for drawing in object_list %}
-        <p><a href="{% url 'contracts:drawing-detail-view' pk=drawing.pk %}">{{ drawing }}</a></p>
-    {% endfor %}
+
+<div class="container">
+    <div class="row justify-content-md-left">
+        <div class="list-group">
+            {% for drawing in object_list %}
+            <div class="d-flex align-items-center justify-content-between">
+                <a class="list-group-item list-group-item-action"
+                   href="{% url 'contracts:drawing-detail-view' pk=drawing.pk %}">{{ drawing }}</a>
+                {% if 'drawings.update_drawing' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-info" href="{% url 'contracts:drawing-update-view' pk=drawing.pk %}" role="button">Update</a>
+                {% endif %}
+                {% if 'drawings.delete_drawing' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-danger" href="{% url 'contracts:drawing-delete-view' pk=drawing.pk %}" role="button">Delete</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

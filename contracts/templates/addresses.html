@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    {% for address in object_list %}
-        <p><a href="{% url 'contracts:address-detail-view' pk=address.pk %}">{{ address }}</a></p>
-    {% endfor %}
+<div class="container">
+    <div class="row justify-content-md-left">
+        <div class="list-group">
+            {% for address in object_list %}
+            <div class="d-flex align-items-center justify-content-between">
+                <a class="list-group-item list-group-item-action"
+                   href="{% url 'contracts:address-detail-view' pk=address.pk %}">{{ address }}</a>
+                {% if 'addresses.update_address' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-info" href="{% url 'contracts:address-update-view' pk=address.pk %}" role="button">Update</a>
+                {% endif %}
+                {% if 'addresses.delete_address' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-danger" href="{% url 'contracts:address-delete-view' pk=address.pk %}" role="button">Delete</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

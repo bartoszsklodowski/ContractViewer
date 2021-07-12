@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    {% for department in object_list %}
-        <p><a href="{% url 'contracts:department-detail-view' pk=department.pk %}">{{ department }}</a></p>
-    {% endfor %}
+
+<div class="container">
+    <div class="row justify-content-md-left">
+        <div class="list-group">
+            {% for department in object_list %}
+            <div class="d-flex align-items-center justify-content-between">
+                <a class="list-group-item list-group-item-action"
+                   href="{% url 'contracts:department-detail-view' pk=department.pk %}">{{ department }}</a>
+                {% if 'departments.update_department' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-info" href="{% url 'contracts:department-update-view' pk=department.pk %}" role="button">Update</a>
+                {% endif %}
+                {% if 'departments.delete_department' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-danger" href="{% url 'contracts:department-delete-view' pk=department.pk %}" role="button">Delete</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

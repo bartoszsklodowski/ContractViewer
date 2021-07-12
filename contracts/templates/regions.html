@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    {% for region in object_list %}
-        <p><a href="{% url 'contracts:region-detail-view' pk=region.pk %}">{{ region }}</a></p>
-    {% endfor %}
+
+<div class="container">
+    <div class="row justify-content-md-left">
+        <div class="list-group">
+            {% for region in object_list %}
+            <div class="d-flex align-items-center justify-content-between">
+                <a class="list-group-item list-group-item-action"
+                   href="{% url 'contracts:region-detail-view' pk=region.pk %}">{{ region }}</a>
+                {% if 'regions.update_region' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-info" href="{% url 'contracts:region-update-view' pk=region.pk %}" role="button">Update</a>
+                {% endif %}
+                {% if 'regions.delete_region' in user.get_group_permissions or user.is_superuser or user.is_staff %}
+                    <a class="btn btn-danger" href="{% url 'contracts:region-delete-view' pk=region.pk %}" role="button">Delete</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
