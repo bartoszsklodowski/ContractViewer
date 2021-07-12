@@ -108,4 +108,4 @@ class Drawing(models.Model):
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE, related_name="drawings")
 
     def __str__(self):
-        return f"{self.number} {self.element} {self.revision} {self.creation_date} {self.modification_date}"
+        return f"{self.number} {self.element} {self.building.name}"
