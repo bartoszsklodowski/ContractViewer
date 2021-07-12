@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <p>id: {{ region.id }}<br> name: {{ region.name }}<br> prefix: {{ region.prefix }}<br> address: {{ region.address }}</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Prefix</th>
+            <th scope="col">Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">{{ region.id }}</th>
+            <td>{{ region.name }}</td>
+            <td>{{ region.prefix }}</td>
+            <td>{{ region.address }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

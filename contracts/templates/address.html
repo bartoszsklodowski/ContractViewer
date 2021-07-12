@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <p>id: {{ address.id }}<br> street: {{ address.street }}<br> zip_code: {{ address.zip_code }}<br> town: {{ address.town }}</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Street</th>
+            <th scope="col">Zip_code</th>
+            <th scope="col">Town</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">{{ address.id }}</th>
+            <td>{{ address.street }}</td>
+            <td>{{ address.zip_code }}</td>
+            <td>{{ address.town }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

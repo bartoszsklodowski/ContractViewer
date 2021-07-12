@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <p>id: {{ building.id }}<br> name: {{ building.name }}<br> description: {{ building.description }}<br> contract: {{ building.contract }}</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Contract</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">{{ building.id }}</th>
+            <td>{{ building.name }}</td>
+            <td>{{ building.description }}</td>
+            <td>{{ building.contract }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

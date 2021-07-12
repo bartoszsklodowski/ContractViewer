@@ -1,11 +1,44 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <p>
-        id: {{ contract.id }}<br> number: {{ contract.number }}<br> name: {{ contract.name }}<br> type: {{ contract.type }}
-        <br> start_date: {{ contract.start_date }}<br> end_date: {{ contract.end_date }}<br> description: {{ contract.description }}
-        <br> address: {{ contract.address }}<br> customer: {{ contract.customer }}<br> region: {{ contract.region }}
-        <br> employee: {% for employee in contract.employee %}
-            {{ employee }}
-        {% endfor %}
-    </p>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Number</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Address</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Region</th>
+            <th scope="col">Employee</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">{{ contract.id }}</th>
+            <td>{{ contract.number }}</td>
+            <td>{{ contract.name }}</td>
+            <td>{{ contract.type }}</td>
+            <td>{{ contract.start_date }}</td>
+            <td>{{ contract.end_date }}</td>
+            <td>{{ contract.description }}</td>
+            <td>{{ contract.address }}</td>
+            <td>{{ contract.customer }}</td>
+            <td>{{ contract.region }}</td>
+            <td><ul>
+                {% for employee in contract.employee.all %}
+                <li>{{ employee }}</li>
+                    {% endfor %}
+                </ul>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

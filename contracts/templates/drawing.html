@@ -1,10 +1,34 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <p>
-        id: {{ drawing.id }}<br> number: {{ drawing.number }}<br> element: {{ drawing.element }}
-        <br> revision: {{ drawing.revision }}<br> creation_date: {{ drawing.creation_date }}
-        <br> modification_date: {{ drawing.modification_date }}
-        <br> technician: {{ drawing.technician }}<br> building: {{ drawing.building }}
-        <br> contract: {{ drawing.contract }}
-    </p>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Number</th>
+            <th scope="col">Element</th>
+            <th scope="col">Revision</th>
+            <th scope="col">Create date</th>
+            <th scope="col">Modification date</th>
+            <th scope="col">Technician</th>
+            <th scope="col">Building</th>
+            <th scope="col">Contract</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">{{ drawing.id }}</th>
+            <td>{{ drawing.number }}</td>
+            <td>{{ drawing.element }}</td>
+            <td>{{ drawing.revision }}</td>
+            <td>{{ drawing.creation_date }}</td>
+            <td>{{ drawing.modification_date }}</td>
+            <td>{{ drawing.technician }}</td>
+            <td>{{ drawing.building }}</td>
+            <td>{{ drawing.contract }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>
-        id: {{ personal_data.id }}<br> name: {{ personal_data.name }}<br> last_name: {{ personal_data.last_name }}
-        <br> address: {{ personal_data.address }}
-    </p>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">{{ personaldata.id }}</th>
+            <td>{{ personaldata.name }}</td>
+            <td>{{ personaldata.last_name }}</td>
+            <td>{{ personaldata.address }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}
