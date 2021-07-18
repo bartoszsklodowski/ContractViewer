@@ -9,6 +9,8 @@ from contracts.models import Address, Customer, Region, PersonalData, Department
 from contracts.forms import AddressModelForm, CustomerModelForm, RegionModelForm, PersonalDataModelForm, \
     DepartmentModelForm
 from contracts.forms import EmployeeModelForm, ContractModelForm, BuildingModelForm, DrawingModelForm
+from contracts.filters import AddressFilter, CustomerFilter, RegionFilter, PersonalDataFilter, DepartmentFilter
+from contracts.filters import EmployeeFilter, ContractFilter, BuildingFilter, DrawingFilter
 
 
 def insert_data(request):
@@ -38,12 +40,22 @@ class AddressListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Address
     ordering = ['town']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = AddressFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
 
 class CustomerListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_customer', ]
     template_name = "customers.html"
     model = Customer
     ordering = ['name']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = CustomerFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 class RegionListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -52,12 +64,22 @@ class RegionListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Region
     ordering = ['prefix']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = RegionFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
 
 class PersonalDataListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_personal_data', ]
     template_name = "personal_datas.html"
     model = PersonalData
     ordering = ['last_name']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = PersonalDataFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 class DepartmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -66,12 +88,22 @@ class DepartmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Department
     ordering = ['name']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = DepartmentFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
 
 class EmployeeListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_employee', ]
     template_name = "employees.html"
     model = Employee
-    ordering = ['personal_data.last_name']
+    ordering = ['personal_data__last_name']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = EmployeeFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 class ContractListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -80,6 +112,11 @@ class ContractListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Contract
     ordering = ['number']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = ContractFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
 
 class BuildingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_building', ]
@@ -87,12 +124,22 @@ class BuildingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Building
     ordering = ['name']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = BuildingFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
 
 class DrawingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_drawing', ]
     template_name = "drawings.html"
     model = Drawing
     ordering = ['building', 'number']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = DrawingFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 # DETAILVIEW
