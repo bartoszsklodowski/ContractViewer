@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
@@ -357,3 +358,21 @@ class DrawingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     model = Drawing
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
+
+
+class ContractSearchView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = ['contracts.view_contract', ]
+    template_name = "contracts.html"
+    model = Contract
+    ordering = ['number']
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Contract.objects.filter(
+            Q(number__icontains=query) | Q(name__icontains=query) | Q(type__icontains=query) |
+            Q(address__street__icontains=query) | Q(address__zip_code__icontains=query) | Q(
+                address__town__icontains=query)
+            | Q(customer__name__icontains=query) | Q(region__name__icontains=query) |
+            Q(employee__personal_data__name__icontains=query) | Q(employee__personal_data__last_name__icontains=query)
+        ).distinct()
+        return object_list
