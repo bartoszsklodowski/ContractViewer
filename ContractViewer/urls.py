@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.urls import urlpatterns
-from contracts.views import insert_data, homepage
+from contracts.views import insert_data, homepage, ContractSearchView
 from accounts.views import dashboard
 from accounts.views import dashboard, UserResetPasswordView
 
@@ -24,6 +24,7 @@ from accounts.views import dashboard, UserResetPasswordView
 urlpatterns = [
     path('', homepage, name='homepage'),
     path('insert_data/', insert_data, name='insert_data'),
+    path('search_contracts/', ContractSearchView.as_view(), name='search_contracts'),
     path('admin/', admin.site.urls),
     path('contracts/', include('contracts.urls')),
     path('accounts/', include('accounts.urls')),
