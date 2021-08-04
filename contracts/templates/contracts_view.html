@@ -8,31 +8,22 @@
         <tr>
             <th scope="col" id="number">Number</th>
             <th scope="col" id="name">Name</th>
-            <th scope="col" id="building">Building</th>
-            <th scope="col" id="drawing">Drawing</th>
+            <th scope="col" id="building">Buildings</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            {% for contract in contracts %}
-            <th scope="col" id="contract"><a
+        {% for contract in contracts %}
+            <tr>
+            <th id="contract"><a
                    href="{% url 'contracts:contract-detail-view' pk=contract.pk %}">{{ contract.number }}</a></th>
-            <td >{{ contract.name }}</td>
-            <td>
-                {% for building in contract.buildings.all %}
-                    {{ building.name }}
+            <td>{{ contract.name }}</td>
+                <td><ul style="list-style-type:none;">
+                    {% for building in contract.buildings.all %}
+                   <li><a href="{% url 'contracts:building-detail-view' pk=building.pk %}">{{ building.name }}</a></li>
                 {% endfor %}
-            </td>
-            {% endfor %}
-            {% for contract in contracts %}
-                {% for building in contract.buildings.all %}
-                    <td >
-                        {% for drawing in building.drawings.all %}
-                        {{ drawing.number }}
-                    {% endfor %}</td>
-                {% endfor %}
-            {% endfor %}
-        </tr>
+                </ul></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
