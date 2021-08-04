@@ -84,7 +84,7 @@ class EmployeeModelForm(ModelForm):
         for employee in Employee.objects.all():
             if result["personal_data"] == employee.personal_data:
                 raise ValidationError("Employee with this personal data is already exist")
-            if result["hire_date"] <= today_date:
+            if result["hire_date"] >= today_date:
                 raise ValidationError("You can't assign hire date before today date")
         return result
 
@@ -107,9 +107,10 @@ class ContractModelForm(ModelForm):
                 raise ValidationError("Contract with this name is already exist")
             if result["number"] == contract.number:
                 raise ValidationError("Contract with this number is already exist")
-            if result["end_date"] <= result["start_date"]:
-                raise ValidationError("You can't assign end date before start date")
-            if result["start_date"] <= today_date or result["end_date"] <= today_date:
+            if result["end_date"]:
+                if result["end_date"] <= result["start_date"] or result["end_date"] >= today_date:
+                    raise ValidationError("You can't assign end date before start date")
+            if result["start_date"] >= today_date:
                 raise ValidationError("You can't assign date before today date")
         return result
 
