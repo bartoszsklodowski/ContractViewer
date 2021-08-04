@@ -1,5 +1,5 @@
 import factory
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 from faker import Faker
 from contracts.models import Address, Customer, Region, PersonalData, Department, Employee, Contract, Building, Drawing
 import pytz
@@ -7,12 +7,31 @@ import pytz
 fake = Faker()
 
 
+class StaffGroupFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Group
+
+    name = "Staff"
+
+
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
-    username = fake.name()
+    username = fake.first_name()
+    password = fake.password()
+    email = fake.email()
     is_staff = 'True'
+
+
+class SuperUserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = User
+
+    username = fake.first_name()
+    password = fake.password()
+    email = fake.email()
+    is_superuser = 'True'
 
 
 class AddressFactory(factory.django.DjangoModelFactory):
@@ -99,7 +118,7 @@ class BuildingFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Building
 
-    name = fake.text()
+    name = fake.name()
     description = fake.text(max_nb_chars=20)
     contract = factory.SubFactory(ContractFactory)
 
