@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.views.generic import TemplateView, ListView, FormView, CreateView, DetailView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from contracts.models import Address, Customer, Region, PersonalData, Department, Employee, Contract, Building, Drawing
 from contracts.forms import AddressModelForm, CustomerModelForm, RegionModelForm, PersonalDataModelForm, \
@@ -13,6 +13,7 @@ from contracts.filters import AddressFilter, CustomerFilter, RegionFilter, Perso
 from contracts.filters import EmployeeFilter, ContractFilter, BuildingFilter, DrawingFilter
 
 
+@login_required(login_url="/accounts/login/")
 def insert_data(request):
     return render(request, template_name="insert_data.html")
 
@@ -409,17 +410,19 @@ class DrawingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
 class ContractSearchView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = ['contracts.view_contract', ]
-    template_name = "contracts.html"
+    template_name = "search_contracts.html"
     model = Contract
     ordering = ['number']
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = Contract.objects.filter(
-            Q(number__icontains=query) | Q(name__icontains=query) | Q(type__icontains=query) |
-            Q(address__street__icontains=query) | Q(address__zip_code__icontains=query) | Q(
-                address__town__icontains=query)
-            | Q(customer__name__icontains=query) | Q(region__name__icontains=query) |
-            Q(employee__personal_data__name__icontains=query) | Q(employee__personal_data__last_name__icontains=query)
-        ).distinct()
-        return object_list
+        if query:
+            object_list = Contract.objects.filter(
+                Q(number__icontains=query) | Q(name__icontains=query) | Q(type__icontains=query) |
+                Q(address__street__icontains=query) | Q(address__zip_code__icontains=query) | Q(
+                    address__town__icontains=query)
+                | Q(customer__name__icontains=query) | Q(region__name__icontains=query) |
+                Q(employee__personal_data__name__icontains=query) | Q(employee__personal_data__last_name__icontains=query)
+            ).distinct()
+            return object_list
+        return []
