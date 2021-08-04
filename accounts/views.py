@@ -30,11 +30,12 @@ class UserRegisterView(View):
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            group = Group.objects.get(name='Staff')
             user = form.save(commit=False)
             user.backend = "django.contrib.auth.backends.ModelBackend"
             user.save()
-            user.groups.add(group)
+            if Group.objects.filter(name='Staff').exists():
+                group = Group.objects.get(name='Staff')
+                user.groups.add(group)
             login(request, user)
             return redirect(reverse('login'))
         return render(
