@@ -9,6 +9,7 @@
             <th scope="col">Name</th>
             <th scope="col">Description</th>
             <th scope="col">Contract</th>
+            <th scope="col">Drawings</th>
         </tr>
         </thead>
         <tbody>
@@ -17,6 +18,11 @@
             <td>{{ building.name }}</td>
             <td>{{ building.description }}</td>
             <td>{{ building.contract }}</td>
+             <td><ul style="list-style-type:none;">
+                    {% for drawing in building.drawings.all %}
+                   <li><a href="{% url 'contracts:drawing-detail-view' pk=drawing.pk %}">{{ drawing.number }}</a></li>
+                {% endfor %}
+             </ul></td>
         </tr>
         </tbody>
     </table>
