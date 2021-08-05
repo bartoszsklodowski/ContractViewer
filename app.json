@@ -1,0 +1,25 @@
+{
+  "name": "ContractViewer",
+  "description": "An Python and Django project.",
+  "repository": "https://github.com/bartoszsklodowski/ContractViewer",
+  "keywords": [
+    "django",
+    "python"
+  ],
+  "image": "heroku/python",
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "ContractViewer.settings",
+    "DEBUG": "True",
+    "ALLOWED_HOSTS": {
+      "value": ".herokuapp.com"
+    },
+    "SOCIAL_AUTH_GITHUB_KEY" : "6cfaf5beb9b4365fcdd4",
+    "SOCIAL_AUTH_GITHUB_SECRET" : "489d60a6d5fb3ce3541c312ee3c77c8bd9d60b17"
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python.git"
+    }
+  ],
+  "success_url": "/"
+}
