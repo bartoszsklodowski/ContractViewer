@@ -12,6 +12,10 @@
     "DEBUG": "True",
     "ALLOWED_HOSTS": {
       "value": ".herokuapp.com"
+    },
+    "test": {
+      "scripts": {
+        "test": "pytest"}
     }
   },
   "buildpacks": [
