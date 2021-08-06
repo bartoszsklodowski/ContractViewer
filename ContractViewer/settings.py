@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'ContractViewer.wsgi.application'
     #     }
     # }
 
-DATABASES = {'default': dj_database_url.config(default='postgresql://<postgresql>')}
+DATABASES = {'default': dj_database_url.config('DATABASE_URL', default='postgresql://<postgresql>')}
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
