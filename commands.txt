@@ -3,3 +3,5 @@ docker run --publish 8000:8000 python-django-contract-viewer
 
 docker-compose build
 docker-compose up
+docker exec -it django_container /bin/bash
+
