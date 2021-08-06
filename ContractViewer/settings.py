@@ -87,26 +87,22 @@ HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 
 if ON_HEROKU:
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgresql',
-        }
-    }
+    DATABASE_URL = 'postgresql://<postgresql>'
 else:
+    pass
     # Docker-compose
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': 'db',
-            'PORT': '5432',
-        }
-    }
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': 'postgres',
+    #         'USER': 'postgres',
+    #         'PASSWORD': 'postgres',
+    #         'HOST': 'db',
+    #         'PORT': '5432',
+    #     }
+    # }
 
-DATABASES['default'] = dj_database_url.config()
+DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
