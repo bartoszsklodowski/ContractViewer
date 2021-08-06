@@ -82,26 +82,20 @@ WSGI_APPLICATION = 'ContractViewer.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-# ON_HEROKU = os.environ.get('ON_HEROKU')
-# HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
+# Docker-compose
+# If you want to build docker_compose container uncomment the DATABASES and comment Heroku configuration.
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
 #
-# if ON_HEROKU:
-#
-#     DATABASE_URL = 'postgresql://<postgresql>'
-# else:
-#     pass
-    # Docker-compose
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #         'NAME': 'postgres',
-    #         'USER': 'postgres',
-    #         'PASSWORD': 'postgres',
-    #         'HOST': 'db',
-    #         'PORT': '5432',
-    #     }
-    # }
-
+# Heroku configuration
 DATABASES = {'default': dj_database_url.config('DATABASE_URL', default='postgresql://<postgresql>')}
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
