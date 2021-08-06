@@ -1,2 +1,2 @@
-release: ./docker-entrypoint.sh
+release: ./release-tasks.sh
 web: gunicorn ContractViewer.wsgi
