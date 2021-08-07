@@ -204,7 +204,7 @@ class AddressCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     model = Address
     form_class = AddressModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class CustomerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -212,7 +212,7 @@ class CustomerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     model = Customer
     form_class = CustomerModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class RegionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -220,7 +220,7 @@ class RegionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Region
     form_class = RegionModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class PersonalDataCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -228,7 +228,7 @@ class PersonalDataCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
     model = PersonalData
     form_class = PersonalDataModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class DepartmentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -236,7 +236,7 @@ class DepartmentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVi
     model = Department
     form_class = DepartmentModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class EmployeeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -244,7 +244,7 @@ class EmployeeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     model = Employee
     form_class = EmployeeModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class ContractCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -252,7 +252,7 @@ class ContractCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     model = Contract
     form_class = ContractModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class BuildingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -260,7 +260,7 @@ class BuildingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     model = Building
     form_class = BuildingModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 class DrawingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -268,7 +268,7 @@ class DrawingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     model = Drawing
     form_class = DrawingModelForm
     template_name = "form.html"
-    success_url = reverse_lazy("contracts:index")
+    success_url = reverse_lazy("contracts:insert_data")
 
 
 # UPDATEVIEW
