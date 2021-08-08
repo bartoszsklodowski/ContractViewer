@@ -149,15 +149,8 @@ LOGOUT_REDIRECT_URL = "dashboard/"
 LOGIN_URL = "accounts/login/"
 
 # Localhost email settings
-# EMAIL_HOST = "localhost"
-# EMAIL_PORT = 1025
-
-# Heroku email settings
-EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 1025
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
