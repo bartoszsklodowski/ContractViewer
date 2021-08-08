@@ -20,5 +20,5 @@
     }
   ],
   "success_url": "/",
-  "addons": [ "heroku-postgresql" ]
+  "addons": [ "heroku-postgresql", "mailgun" ]
 }
