@@ -20,5 +20,5 @@
     }
   ],
   "success_url": "/",
-  "addons": [ "heroku-postgresql", "mailgun:starter" ]
+  "addons": [ "heroku-postgresql", "sendgrid:starter" ]
 }
