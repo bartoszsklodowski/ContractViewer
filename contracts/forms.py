@@ -142,7 +142,7 @@ class DrawingModelForm(ModelForm):
             if result["number"] == drawing.number and result["building"] == drawing.building:
                 raise ValidationError("Drawing with this number is already exist")
             if result["modification_date"]:
-                if datetime.strptime(result["modification_date"], '%Y-%m-%d %H:%M:%S') <= datetime.today().replace(
-                        tzinfo=utc):
+                if datetime.strptime(datetime.strftime(result["modification_date"], '%Y-%m-%d %H:%M:%S'),
+                        '%Y-%m-%d %H:%M:%S').replace(tzinfo=utc) <= datetime.today().replace(tzinfo=utc):
                     raise ValidationError("You can't assign modification date before creation date")
         return result
