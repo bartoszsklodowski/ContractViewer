@@ -47,7 +47,7 @@ List the ready features here:
 ![Example screenshot](./github_images/search_view.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
 
-##Demo
+## Demo
 
 See the current build live by launching the main branch on a free Heroku instance. You will need a Free Heroku account if you havent already got an active account.
 
