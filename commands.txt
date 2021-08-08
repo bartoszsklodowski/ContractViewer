@@ -4,4 +4,11 @@ docker run --publish 8000:8000 python-django-contract-viewer
 docker-compose build
 docker-compose up
 docker exec -it django_container /bin/bash
+python -u -m smtpd -n -c DebuggingServer localhost:1025
+
+python manage.py runserver 0.0.0.0:8000 --settings=ContractViewer.local_settings
+python manage.py dumpdata --all > fixtures.json --settings=ContractViewer.local_settings
+python manage.py loaddata fixtures.json
+
+
 
