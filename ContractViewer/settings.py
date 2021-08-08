@@ -153,10 +153,11 @@ LOGIN_URL = "accounts/login/"
 # EMAIL_PORT = 1025
 
 # Heroku email settings
-EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
