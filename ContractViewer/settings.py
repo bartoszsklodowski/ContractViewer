@@ -148,8 +148,15 @@ LOGOUT_REDIRECT_URL = "dashboard/"
 
 LOGIN_URL = "accounts/login/"
 
-EMAIL_HOST = "localhost"
-EMAIL_PORT = 1025
+# Localhost email settings
+# EMAIL_HOST = "localhost"
+# EMAIL_PORT = 1025
+
+# Heroku email settings
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
