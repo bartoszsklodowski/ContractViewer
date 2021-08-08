@@ -20,5 +20,5 @@
     }
   ],
   "success_url": "/",
-  "addons": [ "heroku-postgresql", "sendgrid:starter" ]
+  "addons": [ "heroku-postgresql"]
 }
