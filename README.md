@@ -2,6 +2,8 @@
 > Manage and view contracts as a user with limited permissions.
 > Live demo [_here_](https://contract-viewer.herokuapp.com/). <!-- If you have the project hosted somewhere, include the link here. -->
 
+Login details: `User_1`/`Useruser123`
+
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
@@ -41,6 +43,7 @@ List the ready features here:
 
 
 ## Screenshots
+![Example screenshot](./github_images/login.png)
 ![Example screenshot](./github_images/contracts.png)
 ![Example screenshot](./github_images/add_personal_data.png)
 ![Example screenshot](./github_images/addresses_list_view.png)
