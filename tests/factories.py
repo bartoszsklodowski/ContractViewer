@@ -129,7 +129,7 @@ class DrawingFactory(factory.django.DjangoModelFactory):
 
     number = fake.random_element(elements=(1210, 1211, 1345))
     element = fake.text(max_nb_chars=20)
-    revision = fake.text(max_nb_chars=5)
+    revision = 'a'
     creation_date = fake.date_time(tzinfo=pytz.UTC)
     modification_date = fake.date_time(tzinfo=pytz.UTC)
     technician = factory.SubFactory(EmployeeFactory)
