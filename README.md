@@ -41,6 +41,7 @@ List the ready features here:
 
 
 ## Screenshots
+![Example screenshot](./github_images/contracts.png)
 ![Example screenshot](./github_images/add_personal_data.png)
 ![Example screenshot](./github_images/addresses_list_view.png)
 ![Example screenshot](./github_images/all_data.png)
