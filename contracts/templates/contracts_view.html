@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load contracts_extras %}
 {% block content %}
 
 <div class="table-responsive">
@@ -28,5 +28,30 @@
     </table>
 </div>
 
+<div class="pagination">
+    <span class="step-links">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <div>
+                {% if contracts.has_previous %}
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page=1&{% relative_url 1 'page' request.GET.urlencode %}">First</a>
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page={{ contracts.previous_page_number }}&{% relative_url contracts.previous_page_number 'page' request.GET.urlencode %}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ contracts.number }} of {{ contracts.paginator.num_pages }}</span>
+
+                {% if contracts.has_next %}
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page={{ contracts.next_page_number }}&{% relative_url contracts.next_page_number 'page' request.GET.urlencode %}">Next</a>
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page={{ contracts.paginator.num_pages }}&{% relative_url contracts.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+    </span>
+</div>
 {% endblock %}
 
