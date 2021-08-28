@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load contracts_extras %}
 {% block content %}
 
 <h2>Addresses</h2>
 <div class="container">
-    <div class="row justify-content-md-left">
+    <div class="row align-items-center">
         <form method="GET">
             {{ filter.form|crispy }}
             <button type="submit" class="btn btn-primary">Filter</button>
@@ -12,19 +13,52 @@
     </div>
     <div class="row justify-content-md-left">
         <div class="list-group">
-            {% for address in filter.qs %}
-            <div class="d-flex align-items-center justify-content-between">
+
+            {% for address in object_list %}
+            <div class="d-flex align-items-center justify-content-between mt-1 mb-1 mr-1">
                 <a class="list-group-item list-group-item-action"
                    href="{% url 'contracts:address-detail-view' pk=address.pk %}">{{ address }}</a>
                 {% if 'addresses.update_address' in user.get_group_permissions or user.is_superuser or user.is_staff %}
-                    <a class="btn btn-info" href="{% url 'contracts:address-update-view' pk=address.pk %}" role="button">Update</a>
+                <a class="btn btn-info m-1" href="{% url 'contracts:address-update-view' pk=address.pk %}"
+                   role="button">Update</a>
                 {% endif %}
                 {% if 'addresses.delete_address' in user.get_group_permissions or user.is_superuser or user.is_staff %}
-                    <a class="btn btn-danger" href="{% url 'contracts:address-delete-view' pk=address.pk %}" role="button">Delete</a>
+                <a class="btn btn-danger m-1" href="{% url 'contracts:address-delete-view' pk=address.pk %}"
+                   role="button">Delete</a>
                 {% endif %}
             </div>
             {% endfor %}
         </div>
     </div>
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if is_paginated %}
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <div>
+                {% if page_obj.has_previous %}
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page=1&{% relative_url 1 'page' request.GET.urlencode %}">First</a>
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page={{ page_obj.previous_page_number }}&{% relative_url page_obj.previous_page_number 'page' request.GET.urlencode %}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+                {% if page_obj.has_next %}
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page={{ page_obj.next_page_number }}&{% relative_url page_obj.next_page_number 'page' request.GET.urlencode %}">Next</a>
+                  <a class="btn btn-outline-info mt-1"
+                     href="?page={{ page_obj.paginator.num_pages }}&{% relative_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+    </span>
+</div>
+<div class="row justify-content-md-center">
+    <a class="nav-item nav-link" href="{% url 'contracts:index' %}">Back to all data page</a>
 </div>
 {% endblock %}
