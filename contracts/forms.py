@@ -1,4 +1,4 @@
-from django.forms import CharField, Form, DateTimeField, ModelChoiceField, TextInput, ModelForm, IntegerField
+from django.forms import CharField, Form, DateTimeField, ModelChoiceField, TextInput, ModelForm, IntegerField, DateInput
 from django.forms import ModelMultipleChoiceField, CheckboxSelectMultiple, SelectDateWidget
 from contracts.models import Address, Customer, Region, PersonalData, Department, Employee, Contract, Building, Drawing
 from django.core.exceptions import ValidationError
@@ -75,8 +75,7 @@ class EmployeeModelForm(ModelForm):
     class Meta:
         model = Employee
         fields = "__all__"
-        widgets = {"hire_date": SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day"),
-                                                 years=range(1990, 2030))}
+        widgets = {"hire_date": DateInput(attrs={'type': 'date'})}
 
     def clean(self):
         today_date = date.today()
@@ -94,10 +93,8 @@ class ContractModelForm(ModelForm):
         model = Contract
         fields = "__all__"
         widgets = {"employee": CheckboxSelectMultiple,
-                   "start_date": SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day"),
-                                                  years=range(1990, 2030)),
-                   "end_date": SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day"),
-                                                years=range(1990, 2030))}
+                   "start_date": DateInput(attrs={'type': 'date'}),
+                   "end_date": DateInput(attrs={'type': 'date'})}
 
     def clean(self):
         today_date = date.today()
@@ -132,8 +129,7 @@ class DrawingModelForm(ModelForm):
     class Meta:
         model = Drawing
         fields = "__all__"
-        widgets = {"modification_date": SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day"),
-                                                         years=range(1990, 2030))}
+        widgets = {"modification_date": DateInput(attrs={'type': 'date'})}
 
     def clean(self):
         utc = pytz.utc
@@ -143,6 +139,6 @@ class DrawingModelForm(ModelForm):
                 raise ValidationError("Drawing with this number is already exist")
             if result["modification_date"]:
                 if datetime.strptime(datetime.strftime(result["modification_date"], '%Y-%m-%d %H:%M:%S'),
-                        '%Y-%m-%d %H:%M:%S').replace(tzinfo=utc) <= datetime.today().replace(tzinfo=utc):
+                                     '%Y-%m-%d %H:%M:%S').replace(tzinfo=utc) <= datetime.today().replace(tzinfo=utc):
                     raise ValidationError("You can't assign modification date before creation date")
         return result
