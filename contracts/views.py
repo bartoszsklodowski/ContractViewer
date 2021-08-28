@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import request
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django_filters.views import FilterView
 
 from contracts.models import Address, Customer, Region, PersonalData, Department, Employee, Contract, Building, Drawing
 from contracts.forms import AddressModelForm, CustomerModelForm, RegionModelForm, PersonalDataModelForm, \
@@ -29,118 +32,94 @@ def index_contracts(request):
 
 @login_required(login_url="/accounts/login/")
 def contract_multiple_view(request):
-    contracts = Contract.objects.all().order_by('name')
+    contracts = Contract.objects.all().order_by('number')
+    paginator = Paginator(contracts, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, template_name='contracts_view.html',
-                  context={'contracts': contracts, })
+                  context={'contracts': page_obj, })
 
 
-# LISTVIEW
-class AddressListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+# FILTERVIEW(LISTVIEW)
+class AddressListView(LoginRequiredMixin, PermissionRequiredMixin,FilterView):
     permission_required = ['contracts.view_address', ]
     template_name = "addresses.html"
     model = Address
+    paginate_by = 15
     ordering = ['town']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = AddressFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    filterset_class = AddressFilter
 
 
-class CustomerListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class CustomerListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_customer', ]
     template_name = "customers.html"
     model = Customer
     ordering = ['name']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = CustomerFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = CustomerFilter
 
 
-class RegionListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class RegionListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_region', ]
     template_name = "regions.html"
     model = Region
     ordering = ['prefix']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = RegionFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = RegionFilter
 
 
-class PersonalDataListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class PersonalDataListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_personal_data', ]
     template_name = "personal_datas.html"
     model = PersonalData
     ordering = ['last_name']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = PersonalDataFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = PersonalDataFilter
 
 
-class DepartmentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class DepartmentListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_department', ]
     template_name = "departments.html"
     model = Department
     ordering = ['name']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = DepartmentFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = DepartmentFilter
 
 
-class EmployeeListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class EmployeeListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_employee', ]
     template_name = "employees.html"
     model = Employee
     ordering = ['personal_data__last_name']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = EmployeeFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = EmployeeFilter
 
 
-class ContractListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class ContractListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_contract', ]
     template_name = "contracts.html"
     model = Contract
     ordering = ['number']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = ContractFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = ContractFilter
 
 
-class BuildingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class BuildingListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_building', ]
     template_name = "buildings.html"
     model = Building
     ordering = ['name']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = BuildingFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = BuildingFilter
 
 
-class DrawingListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class DrawingListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_drawing', ]
     template_name = "drawings.html"
     model = Drawing
     ordering = ['building', 'number']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = DrawingFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    paginate_by = 15
+    filterset_class = DrawingFilter
 
 
 # DETAILVIEW
