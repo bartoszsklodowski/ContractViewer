@@ -1,0 +1,57 @@
+{% extends 'base_pdf.html' %}
+<body>
+{% block content %}
+<h1>Contract</h1>
+<div class="container">
+    <hr>
+    Number: {{ contract.number }}
+    <br>
+    Name: {{ contract.name }}
+    <br>
+    Type: {{ contract.type }}
+    <br>
+    Start date: {{ contract.start_date }}
+
+    {% if contract.end_date %}
+    <br>
+    End date: {{ contract.end_date }}
+    {% endif %}
+
+    {% if contract.description %}
+    <br>
+    Description: {{ contract.description }}
+    {% endif %}
+
+    {% if contract.address %}
+    <br>
+    Address: {{ contract.address }}
+    {% endif %}
+
+    <br>
+    Customer: {{ contract.customer }}
+    <br>
+    Region: {{ contract.region }}
+
+    {% if contract.buildings.all.exists %}
+    <br>
+    Buildings:
+    {% for building in buildings %}
+        <li>{{ building.name }}
+            Drawings:
+            {% for drawing in building.drawings.all %}
+                {{ drawing.number }}({{ drawing.element }});
+            {% endfor %}
+        </li>
+    {% endfor %}
+    {% endif %}
+
+    {% if contract.employee.exists %}
+    Employees:
+    {% for employee in contract.employee.all %}
+    <li>{{ employee }}</li>
+    {% endfor %}
+    {% endif %}
+    <hr>
+</div>
+{% endblock %}
+</body>
