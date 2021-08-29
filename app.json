@@ -10,6 +10,11 @@
   "env": {
     "DJANGO_SETTINGS_MODULE": "ContractViewer.settings",
     "DEBUG": "True",
+    "SECRET_KEY": "",
+    "EMAIL_HOST_PASSWORD": "",
+    "EMAIL_HOST_USER": "",
+    "SOCIAL_AUTH_GITHUB_KEY": "",
+    "SOCIAL_AUTH_GITHUB_SECRET": "",
     "ALLOWED_HOSTS": {
       "value": ".herokuapp.com"
     }
