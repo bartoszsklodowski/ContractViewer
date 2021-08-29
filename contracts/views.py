@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import request
+from django.http import request, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -185,6 +186,11 @@ class AddressCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Address created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class CustomerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ['contracts.add_customer', ]
@@ -192,6 +198,11 @@ class CustomerCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     form_class = CustomerModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Customer created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class RegionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -201,6 +212,11 @@ class RegionCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Region created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class PersonalDataCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ['contracts.add_personal_data', ]
@@ -208,6 +224,11 @@ class PersonalDataCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
     form_class = PersonalDataModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Personal data created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class DepartmentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -217,6 +238,11 @@ class DepartmentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVi
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Department created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class EmployeeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ['contracts.add_employee', ]
@@ -224,6 +250,11 @@ class EmployeeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     form_class = EmployeeModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Employee created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ContractCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -233,6 +264,11 @@ class ContractCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Contract created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class BuildingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ['contracts.add_building', ]
@@ -241,6 +277,11 @@ class BuildingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Building created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class DrawingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ['contracts.add_drawing', ]
@@ -248,6 +289,11 @@ class DrawingCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     form_class = DrawingModelForm
     template_name = "form.html"
     success_url = reverse_lazy("contracts:insert_data")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Drawing created successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 # UPDATEVIEW
@@ -258,6 +304,11 @@ class AddressUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Address updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class CustomerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = ['contracts.view_customer', 'contracts.change_customer', ]
@@ -265,6 +316,11 @@ class CustomerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     fields = ("name", "description", "address",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Customer updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class RegionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -274,6 +330,11 @@ class RegionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Region updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class PersonalDataUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = ['contracts.view_personal_data', 'contracts.change_personal_data', ]
@@ -281,6 +342,11 @@ class PersonalDataUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Update
     fields = ("name", "last_name", "address",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Personal data updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class DepartmentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -290,6 +356,11 @@ class DepartmentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVi
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Department updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class EmployeeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = ['contracts.view_employee', 'contracts.change_employee', ]
@@ -297,6 +368,11 @@ class EmployeeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     fields = ("position", "hire_date", "personal_data", "department",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Employee updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ContractUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -306,6 +382,11 @@ class ContractUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Contract updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class BuildingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = ['contracts.view_building', 'contracts.change_building', ]
@@ -313,6 +394,11 @@ class BuildingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     fields = ("name", "description", "contract",)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Building updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class DrawingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -322,6 +408,11 @@ class DrawingUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     template_name = "form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def form_valid(self, form):
+        messages.success(self.request, "Drawing updated successfully")
+        super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
 
 # DELETEVIEW
 class AddressDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -330,12 +421,20 @@ class AddressDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Address deleted successfully")
+        return super(AddressDeleteView, self).delete(request, *args, **kwargs)
+
 
 class CustomerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = ['contracts.delete_customer', ]
     model = Customer
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Customer deleted successfully")
+        return super(CustomerDeleteView, self).delete(request, *args, **kwargs)
 
 
 class RegionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -344,12 +443,20 @@ class RegionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Region deleted successfully")
+        return super(RegionDeleteView, self).delete(request, *args, **kwargs)
+
 
 class PersonalDataDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = ['contracts.delete_personal_data', ]
     model = PersonalData
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Personal data deleted successfully")
+        return super(PersonalDataDeleteView, self).delete(request, *args, **kwargs)
 
 
 class DepartmentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -358,12 +465,20 @@ class DepartmentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteVi
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Department deleted successfully")
+        return super(DepartmentDeleteView, self).delete(request, *args, **kwargs)
+
 
 class EmployeeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = ['contracts.delete_employee', ]
     model = Employee
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Employee deleted successfully")
+        return super(EmployeeDeleteView, self).delete(request, *args, **kwargs)
 
 
 class ContractDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -372,6 +487,10 @@ class ContractDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Contract deleted successfully")
+        return super(ContractDeleteView, self).delete(request, *args, **kwargs)
+
 
 class BuildingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = ['contracts.delete_building', ]
@@ -379,12 +498,20 @@ class BuildingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Building deleted successfully")
+        return super(BuildingDeleteView, self).delete(request, *args, **kwargs)
+
 
 class DrawingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = ['contracts.delete_drawing', ]
     model = Drawing
     template_name = "delete_form.html"
     success_url = reverse_lazy("contracts:index")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Drawing deleted successfully")
+        return super(DrawingDeleteView, self).delete(request, *args, **kwargs)
 
 
 class ContractSearchView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -470,3 +597,4 @@ def contracts_render_pdf_view(request, *args, **kwargs):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
