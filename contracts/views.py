@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import request
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
@@ -41,7 +41,7 @@ def contract_multiple_view(request):
 
 
 # FILTERVIEW(LISTVIEW)
-class AddressListView(LoginRequiredMixin, PermissionRequiredMixin,FilterView):
+class AddressListView(LoginRequiredMixin, PermissionRequiredMixin, FilterView):
     permission_required = ['contracts.view_address', ]
     template_name = "addresses.html"
     model = Address
@@ -401,7 +401,72 @@ class ContractSearchView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
                 Q(address__street__icontains=query) | Q(address__zip_code__icontains=query) | Q(
                     address__town__icontains=query)
                 | Q(customer__name__icontains=query) | Q(region__name__icontains=query) |
-                Q(employee__personal_data__name__icontains=query) | Q(employee__personal_data__last_name__icontains=query)
+                Q(employee__personal_data__name__icontains=query) | Q(
+                    employee__personal_data__last_name__icontains=query)
             ).distinct()
             return object_list
         return []
+
+
+# PDF VIEWS
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
+
+
+def link_callback(uri, rel):
+    """
+    Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+    resources
+    """
+    result = finders.find(uri)
+    if result:
+        if not isinstance(result, (list, tuple)):
+            result = [result]
+        result = list(os.path.realpath(path) for path in result)
+        path = result[0]
+    else:
+        sUrl = settings.STATIC_URL  # Typically /static/
+        sRoot = settings.STATIC_ROOT  # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL  # Typically /media/
+        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+    # make sure that file exists
+    if not os.path.isfile(path):
+        raise Exception(
+            'media URI must start with %s or %s' % (sUrl, mUrl)
+        )
+    return path
+
+
+def contracts_render_pdf_view(request, *args, **kwargs):
+    pk = kwargs.get('pk')
+    contract = get_object_or_404(Contract, pk=pk)
+    buildings = Building.objects.filter(contract__number=contract.number)
+
+    template_path = 'contracts_pdf.html'
+    context = {'contract': contract, 'buildings': buildings}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
