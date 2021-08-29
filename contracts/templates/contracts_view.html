@@ -9,6 +9,8 @@
             <th scope="col" id="number">Number</th>
             <th scope="col" id="name">Name</th>
             <th scope="col" id="building">Buildings</th>
+            <th scope="col" id="employee">Employees</th>
+            <th scope="col" id="pdf"></th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +24,16 @@
                    <li><a href="{% url 'contracts:building-detail-view' pk=building.pk %}">{{ building.name }}</a></li>
                 {% endfor %}
                 </ul></td>
+                <td><ul style="list-style-type:none;">
+                    {% for employee in contract.employee.all %}
+                   <li>{{ employee.personal_data.name }} {{ employee.personal_data.last_name }}</li>
+                {% endfor %}
+                </ul></td>
+                <td>
+                  <a class="btn btn-outline-danger m-1" href="{% url 'contracts:contracts-pdf-view' pk=contract.pk %}"
+                   role="button">PDF</a>
+                </td>
+
             </tr>
         {% endfor %}
         </tbody>
