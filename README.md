@@ -1,8 +1,9 @@
 # ContractViewer App
 > Manage and view contracts as a user with limited permissions.
-> Live demo [_here_](https://contract-viewer.herokuapp.com/). <!-- If you have the project hosted somewhere, include the link here. -->
+> Live demo [_here_](https://contractviewer.herokuapp.com/). <!-- If you have the project hosted somewhere, include the link here. -->
 
-Login details: `User_1`/`Useruser123`
+Login details user: `User_1`/`Useruser123`
+Login details admin: `admin`/`Adminadmin123`
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -37,16 +38,18 @@ Login details: `User_1`/`Useruser123`
 
 ## Features
 List the ready features here:
-- Filter for every model ListView
+- Filter and pagination for every model ListView
 - Search field for search in contracts using multiple queryset.
 - User account service
+- PDF report of contract
 
 
 ## Screenshots
 ![Example screenshot](./github_images/login.png)
 ![Example screenshot](./github_images/contracts.png)
+![Example screenshot](./github_images/contract_pdf.png)
 ![Example screenshot](./github_images/add_personal_data.png)
-![Example screenshot](./github_images/addresses_list_view.png)
+![Example screenshot](./github_images/contracts_list_view.png)
 ![Example screenshot](./github_images/all_data.png)
 ![Example screenshot](./github_images/search_view.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
@@ -57,7 +60,8 @@ See the current build live by launching the main branch on a free Heroku instanc
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy?template=https://github.com/bartoszsklodowski/ContractViewer)
 
-Login details: `admin`/`Adminadmin123`
+Login details user: `User_1`/`Useruser123`
+Login details admin: `admin`/`Adminadmin123`
 
 ## Setup
 
@@ -247,18 +251,17 @@ You will receive you reset password link in the terminal.
 Project is: _complete_ 
 
 ## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
 
 Room for improvement:
 - Change drawing create view so that the drawing is automatically assigned to the contract based on building
 
 To do:
-- Add mailing server
-- Add option that create report with information about chosen contracts
+- Add scheduler
+- Add notifications
 
 
 ## Acknowledgements
-Give credit here.
+
 - This project was inspired by real life problem in my actual company.
 - Many thanks to Piotr Malinowski
 
