@@ -13,6 +13,7 @@ from contracts.views import DrawingUpdateView
 from contracts.views import AddressDeleteView, CustomerDeleteView, RegionDeleteView, PersonalDataDeleteView
 from contracts.views import DepartmentDeleteView, EmployeeDeleteView, ContractDeleteView, BuildingDeleteView
 from contracts.views import DrawingDeleteView, insert_data, homepage, contract_multiple_view
+from contracts.views import contracts_render_pdf_view
 
 app_name = "contracts"
 
@@ -72,5 +73,7 @@ urlpatterns = [
     path('drawing-delete-view/<pk>/', DrawingDeleteView.as_view(), name='drawing-delete-view'),
 
     path('contract-multiple-view/', contract_multiple_view, name='contract-multiple-view'),
+
+    path('contracts-pdf/<pk>/', contracts_render_pdf_view, name='contracts-pdf-view'),
 
 ]
